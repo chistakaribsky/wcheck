@@ -9,10 +9,7 @@
 </head>
 <body>
     <div class="py-3 d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom px-md-4 bg-white shadow-sm">
-        {% comment %} <a href="/" class="d-flex align-items-center link-body-emphasis text-decoration-none"> {% endcomment %}
         <h5 class="fs-4">Chistakaribsky</h5>
-        {% comment %} </a> {% endcomment %}
-  
         <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
             <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="#">Головна</a>
             <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="#">Інформація</a>
@@ -30,17 +27,21 @@
             </div>
             <div class="col-4 offset-1">
                 <h1>Інформація</h1>
-                <div class="alert alert-info">
-                    <div class="row">
-                        <div class="col-9">
-                            <b>Місто:</b> {{ result.city }}<br>
-                            <b>Температура: </b>{{ result.temp }}&deg;C<br>
-                        </div>
-                        <div class="col-2 offset-1">
-                            <img src="https://openweathermap.org/img/wn/{{ result.icon }}.png" alt="іконка погоди">
+
+                {% for result in results %}
+                    <div class="alert alert-info">
+                        <div class="row">
+                            <div class="col-8">
+                                <b>Місто:</b> {{ result.city }}<br>
+                                <b>Температура: </b>{{ result.temp }}&deg;C<br>
+                            </div>
+                            <div class="col-2">
+                                <img src="https://openweathermap.org/img/wn/{{ result.icon }}.png" alt="іконка погоди">
+                            </div>
                         </div>
                     </div>
-                </div>
+                {% endfor %}
+
             </div>
         </div>
     </div>
