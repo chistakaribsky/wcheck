@@ -1,14 +1,18 @@
 import requests
 from django.shortcuts import render
-
 from .models import City
+from .forms import CityForm
 
 def index(request):
     appid = "8611d7daa87ebb4edc0667a80610d359"
     
-    cities = City.objects.all()
+    if(request.method == "POST"):
+        form = CityForm(request.POST)
+        form.save()
+        
+    form = CityForm()
     
-
+    cities = City.objects.all()
     all_cities = []
     
     for city in cities:
@@ -40,6 +44,6 @@ def index(request):
         else:
             print("Failed to fetch geocoding data:", geo_response.status_code)
     
-    context = {'results': all_cities}
+    context = {"results": all_cities, "form": form}
             
     return render(request, 'forecast/index.html', context)
