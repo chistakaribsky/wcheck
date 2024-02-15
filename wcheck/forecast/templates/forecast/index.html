@@ -24,32 +24,41 @@
                     {% csrf_token %}
                     <label for="city">Місто</label>
                     {{ form.name }}
-                    <input type="submit" name="send" value="Дізнатись" class="mt-2 btn btn-danger">
+                    <input type="submit" name="send" value="Дізнатись" class="mt-2 btn btn-success p-2">
                 </form>
             </div>
             <div class="col-4 offset-1">
                 <h1>Інформація</h1>
-
+            
                 {% for result in results %}
+                    {% if result.icon %}
                     <div class="alert alert-info">
+                    {% else %}
+                    <div class="alert alert-danger" role="alert">
+                    {% endif %}
                         <div class="row">
                             <div class="col-8">
                                 <b>Місто:</b> {{ result.city }}<br>
-                                <b>Температура: </b>{{ result.temp }}&deg;C<br>
+                                <b>Температура: </b>
+                                {% if result.icon %}
+                                    {{ result.temp }}&deg;C<br>
+                                {% else %}
+                                    {{ result.temp }}<br>
+                                {% endif %}
                             </div>
                             <div class="col-2">
-                                <img src="https://openweathermap.org/img/wn/{{ result.icon }}.png" alt="іконка погоди">
+                                {% if result.icon %}
+                                    <img src="https://openweathermap.org/img/wn/{{ result.icon }}.png" alt="іконка погоди">
+                                {% endif %}
                             </div>
-                            {% comment %} <div class="col-1">
-                                <a class="btn btn-link" href="delete/{{ result.id }}">
-                                    <span>&times;</span>
+                            <div class="col-2">
+                                <a href="{% url 'delete' result.city %}" class="btn btn-danger p-2 square-btn">
+                                    <span class="text-white">видалити</span>
                                 </a>
-                            </div> {% endcomment %}
-
+                            </div>
                         </div>
                     </div>
                 {% endfor %}
-
             </div>
         </div>
     </div>
