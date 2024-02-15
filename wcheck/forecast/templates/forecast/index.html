@@ -39,11 +39,9 @@
                         <div class="row">
                             <div class="col-8">
                                 <b>Місто:</b> {{ result.city }}<br>
-                                <b>Температура: </b>
+                                <b>Температура: </b>{{ result.temp }}
                                 {% if result.icon %}
-                                    {{ result.temp }}&deg;C<br>
-                                {% else %}
-                                    {{ result.temp }}<br>
+                                    &deg;C<br>
                                 {% endif %}
                             </div>
                             <div class="col-2">

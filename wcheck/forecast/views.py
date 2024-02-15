@@ -20,19 +20,17 @@ def fetch_data(url):
 def fetch_weather_data(city_name):
     load_dotenv()
     WEATHER_API_KEY = os.getenv('WEATHER_API_KEY')
-    geo_url = f"{BASE_URL}{GEO_ENDPOINT}?q={
-        city_name}&limit=1&appid={WEATHER_API_KEY}"
+    geo_url = f"{BASE_URL}{GEO_ENDPOINT}?q={city_name}&limit=1&appid={WEATHER_API_KEY}"
     geo_data = fetch_data(geo_url)
 
     if geo_data:
         latitude = geo_data[0]['lat']
         longitude = geo_data[0]['lon']
-        weather_url = f"{BASE_URL}{WEATHER_ENDPOINT}?lat={latitude}&lon={
-            longitude}&units=metric&appid={WEATHER_API_KEY}"
+        weather_url = f"{BASE_URL}{WEATHER_ENDPOINT}?lat={latitude}&lon={longitude}&units=metric&appid={WEATHER_API_KEY}"
         return fetch_data(weather_url)
 
 
-def save_city_if_not_exists(city_name):
+def add_city_if_not_exists(city_name):
     existing_city = City.objects.filter(name=city_name).first()
     if not existing_city:
         cities_count = City.objects.count()
@@ -66,7 +64,7 @@ def index(request):
         form = CityForm(request.POST)
         if form.is_valid():
             city_name = form.cleaned_data['name']
-            save_city_if_not_exists(city_name)
+            add_city_if_not_exists(city_name)
     else:
         form = CityForm()
 
