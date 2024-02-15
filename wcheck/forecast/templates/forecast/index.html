@@ -40,6 +40,12 @@
                             <div class="col-2">
                                 <img src="https://openweathermap.org/img/wn/{{ result.icon }}.png" alt="іконка погоди">
                             </div>
+                            {% comment %} <div class="col-1">
+                                <a class="btn btn-link" href="delete/{{ result.id }}">
+                                    <span>&times;</span>
+                                </a>
+                            </div> {% endcomment %}
+
                         </div>
                     </div>
                 {% endfor %}
